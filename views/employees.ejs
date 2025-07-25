@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100 text-gray-800">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employees</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<%- include('partials/employees-summary') %>
+<body class="p-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Employees</h1>
+      <div class="flex gap-2">
+        <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700">Add Employee</button>
+        
+        <button class="border px-4 py-2 rounded text-sm">Download</button>
+      </div>
+    </div>
+
+    <!-- Search & Sort -->
+    <form class="mb-6 flex flex-wrap gap-4">
+      <!-- Search Input -->
+      <div class="flex items-center">
+        <label for="search" class="mr-2 text-sm font-medium">Search Name:</label>
+        <input type="text" id="search" name="search" placeholder="e.g. John" class="border px-3 py-2 rounded text-sm">
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="flex items-center">
+        <label for="sort" class="mr-2 text-sm font-medium">Sort by:</label>
+        <select id="sort" name="sort" class="border px-3 py-2 rounded text-sm">
+          <option value="">-- Choose --</option>
+          <option value="id">ID</option>
+          <option value="first_name">First Name</option>
+          <option value="last_name">Last Name</option>
+          <option value="age">Age</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">Search / Sort</button>
+      </div>
+    </form>
+
+    <!-- Employee Table -->
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+      <table class="min-w-full text-sm text-left">
+        <thead class="bg-gray-100 uppercase text-gray-700 text-xs border-b">
+          <tr>
+            <th class="px-6 py-4">ID</th>
+            <th class="px-6 py-4">First Name</th>
+            <th class="px-6 py-4">Last Name</th>
+            <th class="px-6 py-4">Age</th>
+            <th class="px-6 py-4">Status</th>
+            <th class="px-6 py-4">Hire Date</th>
+            <th class="px-6 py-4">Modify</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Placeholder rows -->
+          <tr class="border-b hover:bg-gray-50">
+            <td class="px-6 py-4">1</td>
+            <td class="px-6 py-4">Jane</td>
+            <td class="px-6 py-4">Doe</td>
+            <td class="px-6 py-4">29</td>
+            <td class="px-6 py-4 text-green-500 font-medium">Active</td>
+            <td class="px-6 py-4">Feb 20, 2025</td>
+            <td><form action="/id:/delete"><button class="border px-4 py-2 rounded text-sm">Delete</button></form></td>
+          </tr>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="px-6 py-4">2</td>
+            <td class="px-6 py-4">John</td>
+            <td class="px-6 py-4">Smith</td>
+            <td class="px-6 py-4">63</td>
+            <td class="px-6 py-4 text-red-500 font-medium">Retiring</td>
+          </tr>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="px-6 py-4">3</td>
+            <td class="px-6 py-4">Leo</td>
+            <td class="px-6 py-4">Chan</td>
+            <td class="px-6 py-4">22</td>
+            <td class="px-6 py-4 text-yellow-500 font-medium">Junior</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
