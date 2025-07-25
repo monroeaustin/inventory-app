@@ -1,0 +1,90 @@
+/* Reset default spacing and font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
+/* Top navigation bar */
+div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3498db;
+  padding: 10px 20px;
+  color: white;
+}
+
+/* Sidebar */
+nav ul {
+  list-style: none;
+  padding: 20px;
+  background-color: #ffffff;
+  height: 100vh;
+  width: 200px;
+  position: fixed;
+  top: 60px; /* height of top nav bar */
+  left: 0;
+  border-right: 1px solid #e0e0e0;
+}
+
+nav ul li {
+  margin: 20px 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+nav ul li a:hover {
+  background-color: #e8f0fe;
+  color: #3498db;
+}
+
+/* Main content area */
+body > div:nth-of-type(3) {
+  margin-left: 220px;
+  padding: 40px 20px;
+  background-color: #f5f7fa;
+}
+
+/* Profile card */
+body > div:nth-of-type(3) > div:first-child {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body > div:nth-of-type(3) > div:first-child h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+body > div:nth-of-type(3) > div:first-child div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Welcome section */
+body > div:nth-of-type(3) > div:last-child h1 {
+  font-size: 1.2rem;
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
