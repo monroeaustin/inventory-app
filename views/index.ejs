@@ -2,52 +2,42 @@
 <html lang="en" class="bg-gray-100 text-gray-900">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employee Manager</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="font-sans">
-  <!-- Navbar -->
-  <header class="bg-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-      <h1 class="text-2xl font-bold text-indigo-600">Employee Manager</h1>
-      <nav>
-        <ul class="flex space-x-6 text-gray-700 font-medium">
-          <li><a href="/" class="hover:text-indigo-600">Home</a></li>
-          <li><a href="/employees" class="hover:text-indigo-600">Employees</a></li>
-          <li><a href="/transactions" class="hover:text-indigo-600">Transactions</a></li>
-          <li><a href="/categorys" class="hover:text-indigo-600">Category</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <!-- Navbar -->
+    <%- include('partials/header') %>
 
-  <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 space-y-10">
-    <!-- Profile Card -->
-    <section class="bg-white rounded-xl shadow-md p-6 flex items-center space-x-6">
-      <div class="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">
-        IMG
-      </div>
-      <div>
-        <h2 class="text-xl font-semibold">Username</h2>
-        <p class="text-gray-500">example@example.com</p>
-      </div>
-    </section>
 
-    <!-- Welcome Message -->
-    <section class="bg-indigo-50 border border-indigo-100 p-6 rounded-xl text-center">
-      <h2 class="text-2xl font-semibold text-indigo-700 mb-2">Welcome!</h2>
-      <p class="text-gray-600">Please navigate and look around the system using the menu above.</p>
-    </section>
-  </main>
+        <!-- Main Content -->
+        <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 space-y-10">
+            <!-- Profile Card -->
+            <section class="bg-white rounded-xl shadow-md p-6 flex items-center space-x-6">
+                <div
+                    class="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">
+                    IMG
+                </div>
+                <div>
+                    <h2 class="text-xl font-semibold">Username</h2>
+                    <p class="text-gray-500">example@example.com</p>
+                </div>
+            </section>
 
-  <!-- Footer -->
-  <footer class="mt-20 text-center text-sm text-gray-400 py-6">
-    &copy; 2025 Employee Manager. All rights reserved.
-  </footer>
+            <!-- Welcome Message -->
+            <section class="bg-indigo-50 border border-indigo-100 p-6 rounded-xl text-center">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-2">Welcome!</h2>
+                <p class="text-gray-600">Please navigate and look around the system using the menu above.</p>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-sm text-gray-400 py-6">
+            &copy; 2025 Employee Manager. All rights reserved.
+        </footer>
 </body>
 
 </html>
