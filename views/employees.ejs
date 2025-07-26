@@ -17,7 +17,8 @@
                 <div class="flex justify-between items-center mb-6">
                     <h1 class="text-2xl font-bold">Employees</h1>
                     <div class="flex gap-2">
-                        <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700"><a href="/employees/new">Add Employee</a></button>
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700"><a
+                                href="/employees/new">Add Employee</a></button>
 
                         <button class="border px-4 py-2 rounded text-sm">Download</button>
                     </div>
@@ -27,27 +28,30 @@
                 <form class="mb-6 flex flex-wrap gap-4">
                     <!-- Search Input -->
                     <div class="flex items-center">
-                        <label for="search" class="mr-2 text-sm font-medium">Search Name:</label>
-                        <input type="text" id="search" name="search" placeholder="e.g. John"
+                        <label for="search" class="mr-2 text-sm font-medium">Search</label>
+                        <input type="text" id="search" name="search" placeholder="e.g. John, Active, 001"
                             class="border px-3 py-2 rounded text-sm">
                     </div>
 
                     <!-- Sort Dropdown -->
                     <div class="flex items-center">
-                        <label for="sort" class="mr-2 text-sm font-medium">Sort by:</label>
+                        <label for="sort" class="mr-2 text-sm font-medium">Sort:</label>
                         <select id="sort" name="sort" class="border px-3 py-2 rounded text-sm">
-                            <option value="id">ID</option>
-                            <option value="first_name">Name</option>
-                            <option value="age">Status</option>
+                            <option value="top_performer">Top Perfromers</option>
+                            <option value="id_asc">ID (Lowest First)</option>
+                            <option value="id_desc">ID (Highest First)</option>
+                            <option value="first_name_asc">Name (A–Z)</option>
+                            <option value="first_name_desc">Name (Z–A)</option>
+                            <option value="age_asc">Age (Youngest First)</option>
+                            <option value="age_desc">Age (Oldest First)</option>
+                            <option value="status_asc">Status (A–Z)</option>
+                            <option value="status_desc">Status (Z–A)</option>
+                            <option value="hire_date_asc">Hire Date (Oldest First)</option>
+                            <option value="hire_date_desc">Hire Date (Newest First)</option>
                         </select>
                     </div>
-                    <div class="flex items-center">
-                        <label for="sort" class="mr-2 text-sm font-medium">Order by:</label>
-                        <select id="sort" name="sort" class="border px-3 py-2 rounded text-sm">
-                            <option value="">ASC</option>
-                            <option value="id">DESC</option>
-                        </select>
-                    </div>
+
+
 
                     <!-- Submit Button -->
                     <div>

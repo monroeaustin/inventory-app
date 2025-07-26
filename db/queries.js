@@ -54,10 +54,16 @@ async function searchEmployeeByName(name){
     return rows
 }
 async function getEmployeesByStatus(status) {
-  const { row } = await pool.query(
+  const { rows } = await pool.query(
     "SELECT * FROM employee WHERE status = $1",[status]
   );
-  return row;
+  return rows;
+}
+async function getEmployeesByID(id) {
+  const { rows } = await pool.query(
+    "SELECT * FROM employee WHERE id = $1",[id]
+  );
+  return rows;
 }
 
 async function countActiveEmployees(){
