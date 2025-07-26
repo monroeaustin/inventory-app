@@ -1,4 +1,4 @@
-require("dotenv").config();
+const { Client } = require("pg");
 
 const createEmployeeTable = 
 `CREATE TABLE IF NOT EXISTS employee (
