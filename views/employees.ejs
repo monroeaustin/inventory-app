@@ -76,34 +76,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Placeholder rows -->
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="px-6 py-4">1</td>
-                                <td class="px-6 py-4">Jane</td>
-                                <td class="px-6 py-4">Doe</td>
-                                <td class="px-6 py-4">29</td>
-                                <td class="px-6 py-4 text-green-500 font-medium">Active</td>
-                                <td class="px-6 py-4">Feb 20, 2025</td>
-                                <td>
-                                    <form action="/id:/delete"><button
-                                            class="border px-4 py-2 rounded text-sm">Delete</button></form>
-                                </td>
-                            </tr>
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="px-6 py-4">2</td>
-                                <td class="px-6 py-4">John</td>
-                                <td class="px-6 py-4">Smith</td>
-                                <td class="px-6 py-4">63</td>
-                                <td class="px-6 py-4 text-red-500 font-medium">Retiring</td>
-                            </tr>
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="px-6 py-4">3</td>
-                                <td class="px-6 py-4">Leo</td>
-                                <td class="px-6 py-4">Chan</td>
-                                <td class="px-6 py-4">22</td>
-                                <td class="px-6 py-4 text-yellow-500 font-medium">Junior</td>
-                            </tr>
+                            <% employees.forEach(emp=> { %>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <%= emp.id %>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <%= emp.first_name %>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <%= emp.last_name %>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <%= emp.age %>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium 
+        <%= emp.status === 'Active' ? 'text-green-500' : 
+            emp.status === 'Retired' ? 'text-red-500' : 
+            emp.status === 'Junior' ? 'text-yellow-500' : 
+            'text-gray-500' %>">
+                                        <%= emp.status %>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <%= new Date(emp.hire_date) %>
+                                    </td>
+                                    <td>
+                                        <form action="/employee/<%= emp.id %>/delete" method="POST">
+                                            <button class="border px-4 py-2 rounded text-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
                         </tbody>
+
+
                     </table>
                 </div>
             </div>

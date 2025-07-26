@@ -1,12 +1,14 @@
 const { render } = require("ejs")
+const db = require('./db/queries');
 
 function showHomePage(req,res){
 
     res.render('index')
 }
 
-function showEmployees(req,res) {
-  res.render('employees')
+async function showEmployees(req,res) {
+  const employee = await db.displayAllEmployees;
+  res.render('employees', {employee})
 }
 function showTransactions(req,res) {
   res.render('transactions')
