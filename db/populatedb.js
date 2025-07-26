@@ -7,7 +7,7 @@ const createEmployeeTable =
   first_name VARCHAR(100),
   last_name VARCHAR(100),
   age INTEGER CHECK (age BETWEEN 13 AND 100),
-  status VARCHAR(50) CHECK (status IN ('Active', 'Retired', 'Junior', 'Terminated')),
+  status VARCHAR(50) CHECK (status IN ('Active', 'Retired', 'Terminated')),
   hire_date DATE,
   top_performer BOOLEAN
 );`
@@ -50,9 +50,10 @@ ${createAdminTable}
 -- Insert dummy employee data
 INSERT INTO employee (first_name, last_name, age, status, hire_date, top_performer) VALUES
   ('Jane', 'Doe', 28, 'Active', '2022-03-01', false),
-  ('John', 'Smith', 45, 'Retired', '2010-06-15', false),
-  ('Emily', 'Chen', 22, 'Junior', '2024-01-12', false),
-  ('Monroe', 'Austin', 24, 'Junior', '2024-01-12', true);
+  ('John', 'Smith', 45, 'Active', '2010-06-15', false),
+  ('Emily', 'Chen', 22, 'Terminated', '2024-01-12', false),
+  ('Monroe', 'Austin', 24, 'Active', '2024-01-12', true),
+  ('Elon', 'Musk', 51, 'Retired', '2017-01-12', true);
 
 -- Insert dummy categories
 INSERT INTO category (id, name, type) VALUES
