@@ -31,12 +31,27 @@ function newEmployee(req,res) {
   res.render('new-employee')
 }
 
+async function addEmployee(req,res){
+  const empdata = {
+    firstName: req.body.first_name,
+    lastName: req.body.last_name,
+    age: req.body.age,
+    status: req.body.status,
+    hireDate: req.body.hire_date,
+    topPerformer: false
+  }
+   await db.insertEmployee(empdata)
+  res.redirect("/employees")
+}
+
 function newTransactions(req,res){
   res.render('new-transaction');
 }
 function newCategorys(req,res){
   res.render('new-category')
 }
+
+
 
 module.exports = {
   showHomePage,
@@ -45,5 +60,6 @@ module.exports = {
   showCategorys,
   newEmployee,
   newTransactions,
-  newCategorys
+  newCategorys,
+  addEmployee
 };

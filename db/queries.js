@@ -38,12 +38,24 @@ async function countTopPerformers(){
     return rows.length
 }
 
+async function insertEmployee(emp){
+  await pool.query(`INSERT INTO employee (first_name,last_name,age,status,hire_date,top_performer) 
+    VALUES ($1,$2,$3,$4,$5,$6)`,  [
+    emp.firstName,
+    emp.lastName,
+    emp.age,
+    emp.status,
+    emp.hireDate,
+    emp.topPerformer
+  ]);}
+    
 module.exports = {
 displayAllEmployees,
 countTotalEmployees,
 getEmployeesByStatus,
 countActiveEmployees,
 countTopPerformers,
+insertEmployee
 };
 
 
