@@ -39,7 +39,11 @@ async function countTopPerformers(){
 }
 
 module.exports = {
-displayAllEmployees
+displayAllEmployees,
+countTotalEmployees,
+getEmployeesByStatus,
+countActiveEmployees,
+countTopPerformers,
 };
 
 

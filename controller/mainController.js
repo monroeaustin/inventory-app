@@ -8,7 +8,16 @@ function showHomePage(req,res){
 
 async function showEmployees(req,res) {
   const employees = await db.displayAllEmployees();
-  res.render('employees', {employees})
+  const totalCountEmployees = await db.countTotalEmployees();
+  const activeCountEmployees = await db.countActiveEmployees('Active');
+  const countTopPerformers = await db.countTopPerformers();
+  const employeeDashboard = {
+    count: totalCountEmployees,
+    active:activeCountEmployees,
+    topPerformers: countTopPerformers
+  }
+  res.render('employees', {employees,
+    employeeDashboard});
 }
 function showTransactions(req,res) {
   res.render('transactions')
