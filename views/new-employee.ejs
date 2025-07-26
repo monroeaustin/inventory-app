@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-8 mt-10">
+  <h1 class="text-xl font-semibold text-gray-800 mb-6">Add New Employee</h1>
+  <form action="/employees" method="POST" class="space-y-4">
+
+    <div>
+      <label class="block mb-1 text-sm font-medium">First Name</label>
+      <input type="text" name="first_name" class="w-full border px-4 py-2 rounded" required>
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium">Last Name</label>
+      <input type="text" name="last_name" class="w-full border px-4 py-2 rounded">
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium">Age</label>
+      <input type="number" name="age" class="w-full border px-4 py-2 rounded">
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium">Status</label>
+      <select name="status" class="w-full border px-4 py-2 rounded">
+        <option value="Active">Active</option>
+        <option value="Retiring">Retiring</option>
+        <option value="Junior">Junior</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium">Hire Date</label>
+      <input type="date" name="hire_date" class="w-full border px-4 py-2 rounded">
+    </div>
+
+    <div class="flex justify-between pt-4">
+      <a href="/employees" class="px-4 py-2 border rounded text-sm">Cancel</a>
+      <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm">Add Employee</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

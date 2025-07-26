@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-8 mt-10">
+        <h1 class="text-xl font-semibold text-gray-800 mb-6">Add New Transaction</h1>
+        <form action="/transactions" method="POST" class="space-y-4">
+
+            <div>
+                <label class="block mb-1 text-sm font-medium">Employee ID</label>
+                <input type="number" name="employee_id" class="w-full border px-4 py-2 rounded" required>
+            </div>
+
+            <div>
+                <label class="block mb-1 text-sm font-medium">Transaction Type</label>
+                <select name="type" class="w-full border px-4 py-2 rounded">
+                    <option value="">-- Choose --</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Bonus">Bonus</option>
+                    <option value="Travel Reimbursement">Travel Reimbursement</option>
+                    <option value="Insurance Deduction">Insurance Deduction</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block mb-1 text-sm font-medium">Amount</label>
+                <input type="number" name="amount" step="0.01" class="w-full border px-4 py-2 rounded">
+            </div>
+
+            <div>
+                <label class="block mb-1 text-sm font-medium">Date</label>
+                <input type="date" name="date" class="w-full border px-4 py-2 rounded">
+            </div>
+
+            <div class="flex justify-between pt-4">
+                <a href="/transactions" class="px-4 py-2 border rounded text-sm">Cancel</a>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm">Add
+                    Transaction</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
