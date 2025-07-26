@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { Client } = require("pg");
 
 const createEmployeeTable = 
@@ -15,12 +16,11 @@ const createEmployeeTable =
 const createTransactionsTable = 
 `CREATE TABLE IF NOT EXISTS transactions (
   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  transaction_id VARCHAR(100) UNIQUE,
   employee_id INTEGER REFERENCES employee(id),
-  name VARCHAR(150),
-  transaction_category VARCHAR(150) REFERENCES category(id),
+  transaction_name VARCHAR(150),
+  category_id INTEGER REFERENCES category(id),
   amount NUMERIC(10,2),
-  hire_date DATE
+  purchase_date DATE
 );`
 
 
@@ -29,8 +29,7 @@ const createCategoryTable =
 `CREATE TABLE IF NOT EXISTS category (
   id INTEGER PRIMARY KEY,
   name VARCHAR(150),
-  transaction_description VARCHAR(80),
-  type VARCHAR(100) CHECK (status in ('Income','Reimbursement','Deduction')),
+  type VARCHAR(100) CHECK (type IN ('Income','Reimbursement','Deduction'))
 );`
 
 const createAdminTable = 
@@ -52,20 +51,20 @@ ${createAdminTable}
 INSERT INTO employee (first_name, last_name, age, status, hire_date, top_performer) VALUES
   ('Jane', 'Doe', 28, 'Active', '2022-03-01', false),
   ('John', 'Smith', 45, 'Retired', '2010-06-15', false),
-  ('Emily', 'Chen', 22, 'Junior', '2024-01-12', false);
+  ('Emily', 'Chen', 22, 'Junior', '2024-01-12', false),
   ('Monroe', 'Austin', 24, 'Junior', '2024-01-12', true);
 
 -- Insert dummy categories
-INSERT INTO category (id, name, transaction_description, type) VALUES
-  (1, 'Bonus', 'Year-end performance bonus', 'Income'),
-  (2, 'Travel Reimbursement', 'Flight and hotel expenses', 'Reimbursement'),
-  (3, 'PTO Payout', 'Paid time off payout', 'Deduction');
+INSERT INTO category (id, name, type) VALUES
+  (1, 'Bonus', 'Income'),
+  (2, 'Travel Reimbursement','Reimbursement'),
+  (3, 'PTO Payout', 'Deduction');
 
 -- Insert dummy transactions
-INSERT INTO transactions (transaction_id, employee_id, name, transaction_category, amount, hire_date) VALUES
-  ('T001', 100, 'Jane Doe', 1, 500.00, '2025-07-20'),
-  ('T002', 101, 'John Smith', 2, 120.00, '2025-07-19'),
-  ('T003', 102, 'Emily Chen', 3, 2400.00, '2025-07-15');
+INSERT INTO transactions ( employee_id, transaction_name, category_id, amount, purchase_date) VALUES
+  ( 100, '1Yr Sign-On Bonus', 1, 500.00, '2025-07-20'),
+  ( 101, 'HQ Plane Tickets', 2, 120.00, '2025-07-19'),
+  ( 102, 'Sick Pay', 3, 2400.00, '2025-07-15');
 
 -- Insert dummy admin user
 INSERT INTO admin_users (username, password, admin_access) VALUES
