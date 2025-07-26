@@ -48,6 +48,10 @@ async function insertEmployee(emp){
     emp.hireDate,
     emp.topPerformer
   ]);}
+
+  async function dropEmployee(id){
+    await pool.query(`DELETE FROM employee WHERE id = ($1)`,[id])
+  }
     
 module.exports = {
 displayAllEmployees,
@@ -55,7 +59,8 @@ countTotalEmployees,
 getEmployeesByStatus,
 countActiveEmployees,
 countTopPerformers,
-insertEmployee
+insertEmployee,
+dropEmployee
 };
 
 

@@ -44,10 +44,19 @@ async function addEmployee(req,res){
   res.redirect("/employees")
 }
 
+async function deleteEmployee(req,res){
+
+  const employeeID = parseInt(req.params.id);
+  db.dropEmployee(employeeID);
+
+  res.redirect("/employees")
+}
+
 function newTransactions(req,res){
   res.render('new-transaction');
 }
 function newCategorys(req,res){
+
   res.render('new-category')
 }
 
@@ -61,5 +70,6 @@ module.exports = {
   newEmployee,
   newTransactions,
   newCategorys,
-  addEmployee
+  addEmployee,
+  deleteEmployee
 };
