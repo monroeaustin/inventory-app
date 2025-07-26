@@ -1,5 +1,5 @@
-const { render } = require("ejs")
-const db = require('./db/queries');
+
+const db = require('../db/queries');
 
 function showHomePage(req,res){
 
@@ -7,8 +7,8 @@ function showHomePage(req,res){
 }
 
 async function showEmployees(req,res) {
-  const employee = await db.displayAllEmployees;
-  res.render('employees', {employee})
+  const employees = await db.displayAllEmployees();
+  res.render('employees', {employees})
 }
 function showTransactions(req,res) {
   res.render('transactions')
