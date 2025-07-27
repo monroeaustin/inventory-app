@@ -71,8 +71,9 @@ async function addEmployee(req, res) {
 
 async function deleteEmployee(req, res) {
   const employeeID = parseInt(req.params.id);
+const isAuthorized = await auth.authCheck();
 
-  if (auth.authCheck) {
+  if ( !isAuthorized) {
     res.render('login')
   } else {
     try {
@@ -164,7 +165,9 @@ async function conductTransactionSearch(req, res) {
 
 async function deleteTransaction(req, res) {
   const transactionID = parseInt(req.params.id);
-  if (auth.authCheck) {
+  const isAuthorized = await auth.authCheck();
+
+  if (!isAuthorized) {
     res.render('login')
   } else {
     try {
@@ -195,7 +198,9 @@ async function addCategory(req, res) {
 
 async function deleteCategory(req, res) {
   const categoryID = parseInt(req.params.id);
-  if (auth.authCheck) {
+  const isAuthorized = await auth.authCheck();
+
+  if (!isAuthorized) {
     res.render('login')
   } else {
     try {
@@ -213,20 +218,26 @@ function showLogin(req, res) {
   res.render('login')
 }
 async function processLogin(req, res) {
-  const admin = auth;
+  const username = req.body.username;
+  const password = req.body.password;
 
-  console.log(req.body.username, req.body.password)
-  if (!admin.passWordCheck(req.body.username, req.body.password)) {
-    await db.processLogin(true, req.body.username);
+  try {
+    const isValid = await auth.passWordCheck(username, password);
 
-    const previousUrl = req.get('Referer') || '/'; // fallback to home if not available
-    console.log('Successfull')
-    res.redirect(previousUrl);
-  } else {
-    console.log('Bad Password')
-    res.render('login-error');
+    if (isValid) {
+      await db.processLogin(true, username);
+      console.log("Successful login");
+      res.redirect('/');
+    } else {
+      console.log("Bad Password");
+      res.render('login-error');
+    }
+  } catch (err) {
+    console.error("Login error:", err.message);
+    res.render('error');
   }
 }
+
 module.exports = {
   showHomePage,
   showEmployees,
