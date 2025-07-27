@@ -77,13 +77,13 @@ searchQuery = req.query;
     active:activeCountEmployees,
     topPerformers: countTopPerformers
   }
-
-console.log('search term:', req.query.search);
+  let search = req.query.search
+console.log('search term:', search);
   const employees   = await db.searchAndSortEmployees(searchQuery.search, searchQuery.sort);
   let sortBy = searchQuery.sort;
   console.log(sortBy)
 
-res.render('employees-search', {employees,sortBy,
+res.render('employees-search', {employees,sortBy,search,
     employeeDashboard});
 }
 
