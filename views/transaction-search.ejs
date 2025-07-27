@@ -23,37 +23,31 @@
             </div>
 
             <!-- Search & Filter -->
-           <form class="mb-6 flex flex-wrap gap-4" action="/transactions/search" method="GET">
-  <div class="flex items-center">
-    <label for="search" class="mr-2 text-sm font-medium">Search</label>
-    <input 
-      type="text" 
-      id="search" 
-      name="search" 
-      placeholder="e.g. Bonus, 101" 
-      class="border px-3 py-2 rounded text-sm"
-      value="<%= search %>"
-    >
-  </div>
+            <form class="mb-6 flex flex-wrap gap-4" action="/transactions/search" method="GET">
+                <div class="flex items-center">
+                    <label for="search" class="mr-2 text-sm font-medium">Search</label>
+                    <input type="text" id="search" name="search" placeholder="e.g. Bonus, 101"
+                        class="border px-3 py-2 rounded text-sm" value="<%= search %>">
+                </div>
 
-  <div class="flex items-center">
-    <label for="filter" class="mr-2 text-sm font-medium">Category:</label>
-    <select id="filter" name="filter" class="border px-3 py-2 rounded text-sm">
-      <option value="">-- All --</option>
-      <% categories.forEach(cat => { %>
-        <option value="<%= cat.name %>" <%= filter === cat.name ? 'selected' : '' %>>
-          <%= cat.name %>
-        </option>
-      <% }) %>
-    </select>
-  </div>
+                <div class="flex items-center">
+                    <label for="filter" class="mr-2 text-sm font-medium">Category:</label>
+                    <select id="filter" name="filter" class="border px-3 py-2 rounded text-sm">
+                        <option value="">-- All --</option>
+                        <% categories.forEach(cat=> { %>
+                            <option value="<%= cat.name %>" <%=filter===cat.name ? 'selected' : '' %>>
+                                <%= cat.name %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
 
-  <div>
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
-      Search / Filter
-    </button>
-  </div>
-</form>
+                <div>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                        Search / Filter
+                    </button>
+                </div>
+            </form>
 
 
 
@@ -96,7 +90,7 @@
                                     <%= new Date(tx.purchase_date).toLocaleDateString(undefined, {year: "numeric" ,
                                         month: "long" , day: "numeric" }) %>
                                 </td>
-                                <td>
+                                <td class="px-6 py-4">
                                     <form action="/transactions/<%= tx.id %>/delete" method="POST">
                                         <button class="border px-4 py-2 rounded text-sm">Delete</button>
                                     </form>

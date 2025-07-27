@@ -103,7 +103,7 @@
                                         <%= new Date(emp.hire_date).toLocaleDateString(undefined, {year: "numeric" ,
                                             month: "long" , day: "numeric" }) %>
                                     </td>
-                                    <td>
+                                    <td class="px-6 py-4">
                                         <form action="/employees/<%= emp.id %>/delete" method="POST">
                                             <button class="border px-4 py-2 rounded text-sm">Delete</button>
                                         </form>
