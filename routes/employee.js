@@ -5,5 +5,6 @@ router.get('/', controller.showEmployees);
 router.get('/new',controller.newEmployee)
 router.post('/new',controller.addEmployee)
 router.post('/:id/delete',controller.deleteEmployee)
+router.get('/search',controller.conductSearch)
 
 module.exports = router;

@@ -1,5 +1,6 @@
 
 const db = require('../db/queries');
+const { search } = require('../routes/home');
 
 function showHomePage(req,res){
 
@@ -66,6 +67,27 @@ function newCategorys(req,res){
   res.render('new-category')
 }
 
+async function conductSearch(req,res){
+searchQuery = req.query;
+  const totalCountEmployees = await db.countTotalEmployees();
+  const activeCountEmployees = await db.countActiveEmployees('Active');
+  const countTopPerformers = await db.countTopPerformers();
+  const employeeDashboard = {
+    count: totalCountEmployees,
+    active:activeCountEmployees,
+    topPerformers: countTopPerformers
+  }
+
+console.log('search term:', req.query.search);
+  const employees   = await db.searchAndSortEmployees(searchQuery.search, searchQuery.sort);
+  let sortBy = searchQuery.sort;
+  console.log(sortBy)
+
+res.render('employees-search', {employees,sortBy,
+    employeeDashboard});
+}
+
+
 
 
 module.exports = {
@@ -77,5 +99,6 @@ module.exports = {
   newTransactions,
   newCategorys,
   addEmployee,
-  deleteEmployee
+  deleteEmployee,
+  conductSearch
 };

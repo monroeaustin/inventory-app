@@ -24,8 +24,8 @@
                     </div>
                 </div>
 
-                <!-- Search & Sort -->
-                <form class="mb-6 flex flex-wrap gap-4" action="/employees/search" method="GET">
+                <!-- Search & sortBy -->
+                <form class="mb-6 flex flex-wrap gap-4">
                     <!-- Search Input -->
                     <div class="flex items-center">
                         <label for="search" class="mr-2 text-sm font-medium">Search</label>
@@ -33,18 +33,25 @@
                             class="border px-3 py-2 rounded text-sm">
                     </div>
 
-                    <!-- Sort Dropdown -->
+                    <!-- sortBy Dropdown -->
                     <div class="flex items-center">
-                        <label for="sort" class="mr-2 text-sm font-medium">Sort:</label>
-                        <select id="sort" name="sort" class="border px-3 py-2 rounded text-sm">
-                            <option value="top_performer">Top Performers</option>
-                            <option value="id_asc">ID (Lowest First)</option>
-                            <option value="id_desc">ID (Highest First)</option>
-                            <option value="first_name_asc">Name (A–Z)</option>
-                            <option value="first_name_desc">Name (Z–A)</option>
-                            <option value="age_asc">Age (Youngest First)</option>
-                            <option value="age_desc">Age (Oldest First)</option>
+                        <label for="sort" class="mr-2 text-sm font-medium">sortBy:</label>
+                        <select id="sort" name="sortBy" class="border px-3 py-2 rounded text-sm">
+                            <option value="top_performer" <%=sortBy==='top_performer' ? 'selected' : '' %>>Top
+                                Performers</option>
+                            <option value="id_asc" <%=sortBy==='id_asc' ? 'selected' : '' %>>ID (Lowest First)</option>
+                            <option value="id_desc" <%=sortBy==='id_desc' ? 'selected' : '' %>>ID (Highest First)
+                            </option>
+                            <option value="first_name_asc" <%=sortBy==='first_name_asc' ? 'selected' : '' %>>Name (A–Z)
+                            </option>
+                            <option value="first_name_desc" <%=sortBy==='first_name_desc' ? 'selected' : '' %>>Name
+                                (Z–A)</option>
+                            <option value="age_asc" <%=sortBy==='age_asc' ? 'selected' : '' %>>Age (Youngest First)
+                            </option>
+                            <option value="age_desc" <%=sortBy==='age_desc' ? 'selected' : '' %>>Age (Oldest First)
+                            </option>
                         </select>
+
                     </div>
 
 
@@ -94,9 +101,8 @@
                                         <%= emp.status %>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <%= new Date(emp.hire_date).toLocaleDateString(undefined, {year: "numeric",
-  month: "long",
-  day: "numeric"}) %>
+                                        <%= new Date(emp.hire_date).toLocaleDateString(undefined, {year: "numeric" ,
+                                            month: "long" , day: "numeric" }) %>
                                     </td>
                                     <td>
                                         <form action="/employees/<%= emp.id %>/delete" method="POST">
