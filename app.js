@@ -10,12 +10,14 @@ const homeRoute = require('./routes/home')
 const employeeRoute = require('./routes/employee')
 const transactionRoute = require('./routes/transaction')
 const categoryRoute = require('./routes/category')
+const loginRoute = require('./routes/login')
 
 
 app.use('/',homeRoute)
 app.use('/employees',employeeRoute)
 app.use('/transactions',transactionRoute)
 app.use('/categorys',categoryRoute)
+app.use('/login',loginRoute)
 
 
 app.listen(3000,() => {

@@ -258,7 +258,19 @@ async function dropCategory(id) {
   await pool.query(`DELETE FROM category WHERE id = $1`, [id]);
 }
 
+async function retrieveAdminStatus(){
+  const  { rows } = await pool.query(` SELECT * FROM admin_users`);
+  return rows[0];
+}
 
+async function processLogin(val, user) {
+  await pool.query(
+    `UPDATE admin_users
+     SET logged_in = $1
+     WHERE username = $2`,
+    [val, user]
+  );
+}
 
 
 module.exports = {
@@ -278,7 +290,9 @@ module.exports = {
   getAllTransactionsWithDetails,
   searchAndSortTransactions,
   insertCategory,
-  dropCategory
+  dropCategory,
+  retrieveAdminStatus,
+  processLogin
 
 };
 

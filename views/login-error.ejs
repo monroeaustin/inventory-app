@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100 text-gray-900">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Employee Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb', // blue-600
+          },
+        },
+      },
+    };
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.5.3/dist/forms.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+  <div class="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 space-y-6">
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Log in to Employee Manager</h2>
+      <p class="text-sm text-gray-500">Welcome back! Please enter your credentials.</p>
+    </div>
+
+
+      <div class="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 flex items-start gap-3 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 text-red-500" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 8v4m0 4h.01M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />
+        </svg>
+        <div>
+          <p class="font-semibold">Login failed. Please check your username and password.</p>
+          <p class="text-xs text-red-500 mt-0.5">Tip: Make sure caps lock is off. If you're stuck, contact your admin.</p>
+        </div>
+      </div>
+    
+
+    <form action="/login" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1 text-gray-700">Username</label>
+        <div class="relative">
+          <input name="username" required placeholder="e.g. admin"
+            class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary text-sm transition duration-150 ease-in-out" />
+          <div class="absolute left-3 top-2.5 text-gray-400">
+            <i data-feather="user"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-medium mb-1 text-gray-700">Password</label>
+        <div class="relative">
+          <input type="password" name="password" required placeholder="••••••••"
+            class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary text-sm transition duration-150 ease-in-out" />
+          <div class="absolute left-3 top-2.5 text-gray-400">
+            <i data-feather="lock"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forgot Link -->
+      <div class="flex items-center justify-between text-sm">
+        <a href="/" class="text-primary hover:underline">Forgot password?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit"
+          class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 ease-in-out">
+          Sign in
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="text-center text-xs text-gray-400">or</div>
+
+      <!-- Google Sign-in -->
+      <div>
+        <a href="/"
+          class="w-full flex justify-center items-center gap-2 border border-gray-300 py-2 rounded-lg text-sm hover:bg-gray-50 transition">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" />
+          Sign in with Google
+        </a>
+      </div>
+    </form>
+
+    <p class="text-xs text-center text-gray-500">Don’t have an account?
+      <a href="/" class="text-primary hover:underline">Sign up</a>
+    </p>
+  </div>
+
+  <!-- Optional Info Block -->
+  <section class="bg-blue-50 border border-indigo-100 p-6 rounded-xl text-center mt-6 w-full max-w-md shadow-sm">
+    <h2 class="text-lg font-semibold text-indigo-700 mb-2">Need access?</h2>
+    <p class="text-sm text-gray-600">
+      Access is required to perform certain tasks. <br />
+      Please refer to the README to gain proper admin credentials.
+    </p>
+  </section>
+
+</body>
+
+</html>

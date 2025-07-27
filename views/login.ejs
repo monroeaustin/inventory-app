@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100 text-gray-900">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Employee Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2563eb', // blue-600
+            },
+          },
+        },
+      };
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.5.3/dist/forms.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+  </head>
+
+  <body class="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+    <div class="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 space-y-6">
+      <div class="text-center">
+        
+        <h2 class="text-2xl font-bold text-gray-800">Log in to Employee Manager</h2>
+        <p class="text-sm text-gray-500">Welcome back! Please enter your credentials.</p>
+      </div>
+
+      <form action="/login" method="POST" class="space-y-4">
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium mb-1 text-gray-700">Username</label>
+          <div class="relative">
+            <input  name="username" required placeholder="e.g. admin"
+              class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary text-sm transition duration-150 ease-in-out" />
+            <div class="absolute left-3 top-2.5 text-gray-400">
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-sm font-medium mb-1 text-gray-700">Password</label>
+          <div class="relative">
+            <input type="password" name="password" required placeholder="••••••••"
+              class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary text-sm transition duration-150 ease-in-out" />
+            <div class="absolute left-3 top-2.5 text-gray-400">
+              <i data-feather="lock"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot -->
+        <div class="flex items-center justify-between text-sm">
+          
+          <a href="/" class="text-primary hover:underline">Forgot password?</a>
+        </div>
+
+        <!-- Submit -->
+        <div>
+          <button type="submit"
+            class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 ease-in-out">
+            Sign in
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="text-center text-xs text-gray-400">or</div>
+
+        <!-- Google Sign-in -->
+        <div>
+          <a href="/"
+            class="w-full flex justify-center items-center gap-2 border border-gray-300 py-2 rounded-lg text-sm hover:bg-gray-50 transition">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" />
+            Sign in with Google
+          </a>
+        </div>
+      </form>
+
+      <p class="text-xs text-center text-gray-500">Don’t have an account?
+        <a href="/" class="text-primary hover:underline">Sign up</a>
+      </p>
+    </div>
+<section class="bg-red border border-indigo-100 p-6 rounded-xl text-center">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-2">Welcome!</h2>
+                <p class="text-gray-600">Access is required to perform certain tasks. <br>
+                    Please refer to the README to gain access.  </p>
+            </section>
+        </main>
+ 
+  </body>
+</html>

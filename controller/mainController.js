@@ -1,7 +1,6 @@
 
 const db = require('../db/queries');
-const { search } = require('../routes/home');
-
+const auth = require("../utils/authCheck")
 function showHomePage(req,res){
 
     res.render('index')
@@ -186,8 +185,24 @@ async function deleteCategory(req, res) {
   }
 }
 
+ function showLogin(req,res){
+  res.render('login')
+}
+async function processLogin (req, res) {
+  const admin = auth;
 
+  console.log(req.body.username, req.body.password)
+  if (!admin.passWordCheck(req.body.username, req.body.password)) {
+    await db.processLogin(true, req.body.username);
 
+    const previousUrl = req.get('Referer') || '/'; // fallback to home if not available
+    console.log('Successfull')
+    res.redirect(previousUrl);
+  } else {
+     console.log('Bad Password')
+    res.render('login-error');
+  }
+}
 module.exports = {
   showHomePage,
   showEmployees,
@@ -203,6 +218,8 @@ module.exports = {
   conductTransactionSearch,
   deleteTransaction,
   addCategory,
-  deleteCategory
+  deleteCategory,
+  showLogin,
+  processLogin
   
 };
