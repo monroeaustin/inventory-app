@@ -1,28 +1,30 @@
 
 const db = require('../db/queries');
 const auth = require("../utils/authCheck")
-function showHomePage(req,res){
+function showHomePage(req, res) {
 
-    res.render('index')
+  res.render('index')
 }
 
-async function showEmployees(req,res) {
+async function showEmployees(req, res) {
   const employees = await db.displayAllEmployees();
   const totalCountEmployees = await db.countTotalEmployees();
   const activeCountEmployees = await db.countActiveEmployees('Active');
   const countTopPerformers = await db.countTopPerformers();
   const employeeDashboard = {
     count: totalCountEmployees,
-    active:activeCountEmployees,
+    active: activeCountEmployees,
     topPerformers: countTopPerformers
   }
-   res.render('employees', {employees,
-    employeeDashboard});
+  res.render('employees', {
+    employees,
+    employeeDashboard
+  });
 }
 async function showTransactions(req, res) {
   try {
     const transactions = await db.getAllTransactionsWithDetails();
-    const categories = await db.getAllCategories(); 
+    const categories = await db.getAllCategories();
     res.render('transactions', {
       transactions,
       categories,
@@ -42,11 +44,11 @@ async function showCategorys(req, res) {
     res.render("error");
   }
 }
-function newEmployee(req,res) {
+function newEmployee(req, res) {
   res.render('new-employee')
 }
 
-async function addEmployee(req,res){
+async function addEmployee(req, res) {
   const empdata = {
     firstName: req.body.first_name,
     lastName: req.body.last_name,
@@ -55,25 +57,30 @@ async function addEmployee(req,res){
     hireDate: req.body.hire_date,
     topPerformer: false
   }
-   await db.insertEmployee(empdata)
+  await db.insertEmployee(empdata)
   res.redirect("/employees")
 }
 
-async function deleteEmployee(req,res){
-
+async function deleteEmployee(req, res) {
   const employeeID = parseInt(req.params.id);
 
-  try {
-     await db.dropEmployee(employeeID);
-     res.redirect("/employees")
-  } catch (err){
-    console.log('Something went wrong:', err.message)
-    res.render('error')
+  if (auth.authCheck) {
+    res.render('login')
+  } else {
+    try {
+      await db.dropEmployee(employeeID);
+      res.redirect("/employees")
+    } catch (err) {
+      console.log('Something went wrong:', err.message)
+      res.render('error')
+    }
   }
+
+
 
 }
 
-async function newTransactions(req,res){
+async function newTransactions(req, res) {
   const employees = await db.displayAllEmployees();
   const categories = await db.getAllCategories();
   res.render('new-transaction', {
@@ -81,29 +88,31 @@ async function newTransactions(req,res){
     categories
   });
 }
-function newCategorys(req,res){
+function newCategorys(req, res) {
 
   res.render('new-category')
 }
 
-async function conductEmployeeSearch(req,res){
-searchQuery = req.query;
+async function conductEmployeeSearch(req, res) {
+  searchQuery = req.query;
   const totalCountEmployees = await db.countTotalEmployees();
   const activeCountEmployees = await db.countActiveEmployees('Active');
   const countTopPerformers = await db.countTopPerformers();
   const employeeDashboard = {
     count: totalCountEmployees,
-    active:activeCountEmployees,
+    active: activeCountEmployees,
     topPerformers: countTopPerformers
   }
   let search = req.query.search
-console.log('search term:', search);
-  const employees   = await db.searchAndSortEmployees(searchQuery.search, searchQuery.sort);
+  console.log('search term:', search);
+  const employees = await db.searchAndSortEmployees(searchQuery.search, searchQuery.sort);
   let sortBy = searchQuery.sort;
   console.log(sortBy)
 
-res.render('employees-search', {employees,sortBy,search,
-    employeeDashboard});
+  res.render('employees-search', {
+    employees, sortBy, search,
+    employeeDashboard
+  });
 }
 
 async function postNewTransaction(req, res) {
@@ -147,13 +156,16 @@ async function conductTransactionSearch(req, res) {
 
 async function deleteTransaction(req, res) {
   const transactionID = parseInt(req.params.id);
-
-  try {
-    await db.dropTransaction(transactionID);
-    res.redirect("/transactions");
-  } catch (err) {
-    console.error("Transaction delete error:", err.message);
-    res.render("error");
+  if (auth.authCheck) {
+    res.render('login')
+  } else {
+    try {
+      await db.dropTransaction(transactionID);
+      res.redirect("/transactions");
+    } catch (err) {
+      console.error("Transaction delete error:", err.message);
+      res.render("error");
+    }
   }
 }
 
@@ -177,20 +189,22 @@ async function deleteCategory(req, res) {
   const categoryID = parseInt(req.params.id);
   if (auth.authCheck) {
     res.render('login')
-  } else {try {
-    await db.dropCategory(categoryID);
-    res.redirect("/categorys");
-  } catch (err) {
-    console.error("Category delete error:", err.message);
-    res.render("error");
-  }}
-  
+  } else {
+    try {
+      await db.dropCategory(categoryID);
+      res.redirect("/categorys");
+    } catch (err) {
+      console.error("Category delete error:", err.message);
+      res.render("error");
+    }
+  }
+
 }
 
- function showLogin(req,res){
+function showLogin(req, res) {
   res.render('login')
 }
-async function processLogin (req, res) {
+async function processLogin(req, res) {
   const admin = auth;
 
   console.log(req.body.username, req.body.password)
@@ -201,7 +215,7 @@ async function processLogin (req, res) {
     console.log('Successfull')
     res.redirect(previousUrl);
   } else {
-     console.log('Bad Password')
+    console.log('Bad Password')
     res.render('login-error');
   }
 }
@@ -223,5 +237,5 @@ module.exports = {
   deleteCategory,
   showLogin,
   processLogin
-  
+
 };
