@@ -56,6 +56,7 @@
             <tr>
               <th class="px-6 py-4">Transaction ID</th>
               <th class="px-6 py-4">Employee ID</th>
+              <th class="px-6 py-4">Employee Name</th>
               <th class="px-6 py-4">Description</th>
               <th class="px-6 py-4">Category</th>
               <th class="px-6 py-4">Amount</th>
@@ -73,7 +74,10 @@
                   <%= tx.employee_id %>
                 </td>
                 <td class="px-6 py-4">
-                  <%= tx.employee_name %>
+                  <%= tx.first_name + ' ' + tx.last_name %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= tx.transaction_name %>
                 </td>
                 <td class="px-6 py-4 text-blue-600 font-medium">
                   <%= tx.category_name %>
