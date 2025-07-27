@@ -16,7 +16,7 @@ async function showEmployees(req,res) {
     active:activeCountEmployees,
     topPerformers: countTopPerformers
   }
-  res.render('employees', {employees,
+   res.render('employees', {employees,
     employeeDashboard});
 }
 function showTransactions(req,res) {
@@ -47,9 +47,15 @@ async function addEmployee(req,res){
 async function deleteEmployee(req,res){
 
   const employeeID = parseInt(req.params.id);
-  db.dropEmployee(employeeID);
 
-  res.redirect("/employees")
+  try {
+     await db.dropEmployee(employeeID);
+     res.redirect("/employees")
+  } catch (err){
+    console.log('Something went wrong:', err.message)
+    res.render('error')
+  }
+
 }
 
 function newTransactions(req,res){
