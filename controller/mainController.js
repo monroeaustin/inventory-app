@@ -102,6 +102,24 @@ res.render('employees-search', {employees,sortBy,search,
     employeeDashboard});
 }
 
+async function postNewTransaction(req, res) {
+  try {
+    const txnData = {
+      employee_id: parseInt(req.body.employee_id),
+      transaction_name: req.body.description,
+      category_id: parseInt(req.body.type), // <- now this is ID, not name
+      amount: parseFloat(req.body.amount),
+      purchase_date: req.body.date
+    };
+
+    await db.insertTransaction(txnData);
+    res.redirect("/transactions");
+  } catch (err) {
+    console.error("Transaction insert error:", err.message);
+    res.render("error");
+  }
+}
+
 
 
 
@@ -117,5 +135,7 @@ module.exports = {
   newCategorys,
   addEmployee,
   deleteEmployee,
-  conductSearch
+  conductSearch,
+  postNewTransaction
+  
 };
