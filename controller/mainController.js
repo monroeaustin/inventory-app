@@ -175,14 +175,16 @@ async function addCategory(req, res) {
 
 async function deleteCategory(req, res) {
   const categoryID = parseInt(req.params.id);
-
-  try {
+  if (auth.authCheck) {
+    res.render('login')
+  } else {try {
     await db.dropCategory(categoryID);
     res.redirect("/categorys");
   } catch (err) {
     console.error("Category delete error:", err.message);
     res.render("error");
-  }
+  }}
+  
 }
 
  function showLogin(req,res){
