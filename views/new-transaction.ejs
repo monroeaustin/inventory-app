@@ -16,18 +16,29 @@
 
             <div>
                 <label class="block mb-1 text-sm font-medium">Employee ID</label>
-                <input type="number" name="employee_id" class="w-full border px-4 py-2 rounded" required>
+                <select  name="employee_id" class="w-full border px-4 py-2 rounded" required>
+                     <% employees.forEach(emp=> { %>
+              <option value="<%= emp.id %>">
+                <%= emp.id %>
+              </option>
+              <% }) %>
+            </select>
             </div>
 
             <div>
-                <label class="block mb-1 text-sm font-medium">Transaction Type</label>
+                <label class="block mb-1 text-sm font-medium">Category</label>
                 <select name="type" class="w-full border px-4 py-2 rounded">
-                    <option value="">-- Choose --</option>
-                    <option value="Salary">Salary</option>
-                    <option value="Bonus">Bonus</option>
-                    <option value="Travel Reimbursement">Travel Reimbursement</option>
-                    <option value="Insurance Deduction">Insurance Deduction</option>
+                    <%     categories.forEach(cat=> { %>
+              <option value="<%= cat.name %>">
+                <%= cat.name %>
+              </option>
+              <% }) %>
                 </select>
+            </div>
+
+            <div>
+                <label class="block mb-1 text-sm font-medium">Description</label>
+                <input type="text" name="description" maxlength="50" class="w-full border px-4 py-2 rounded">
             </div>
 
             <div>

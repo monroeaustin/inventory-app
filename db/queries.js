@@ -104,6 +104,91 @@ async function searchAndSortEmployees(search, sortBy) {
   return rows;
 }
 
+async function displayAllTransactions() {
+  const { rows } = await pool.query(`
+    SELECT 
+      t.id,
+      t.transaction_name,
+      t.amount,
+      t.purchase_date,
+      e.id AS employee_id,
+      e.first_name,
+      e.last_name,
+      c.name AS category_name,
+      c.type AS category_type
+    FROM transactions t
+    JOIN employee e ON t.employee_id = e.id
+    JOIN category c ON t.category_id = c.id
+    ORDER BY t.purchase_date DESC;
+  `);
+  return rows;
+}
+
+// Insert a new transaction
+async function insertTransaction(txn) {
+  await pool.query(`
+    INSERT INTO transactions (employee_id, transaction_name, category_id, amount, purchase_date)
+    VALUES ($1, $2, $3, $4, $5);
+  `, [txn.employee_id, txn.transaction_name, txn.category_id, txn.amount, txn.purchase_date]);
+}
+
+// Delete a transaction by ID
+async function dropTransaction(id) {
+  await pool.query(`DELETE FROM transactions WHERE id = $1`, [id]);
+}
+
+// Get all categories (for dropdowns)
+async function getAllCategories() {
+  const { rows } = await pool.query(`SELECT * FROM category ORDER BY name ASC`);
+  return rows;
+}
+
+// Optional: Search transactions by employee ID or category name
+async function searchTransactions(query) {
+  const value = `%${query}%`;
+  const { rows } = await pool.query(`
+    SELECT 
+      t.id,
+      t.transaction_name,
+      t.amount,
+      t.purchase_date,
+      e.id AS employee_id,
+      e.first_name,
+      e.last_name,
+      c.name AS category_name,
+      c.type AS category_type
+    FROM transactions t
+    JOIN employee e ON t.employee_id = e.id
+    JOIN category c ON t.category_id = c.id
+    WHERE 
+      CAST(e.id AS TEXT) ILIKE $1 OR
+      c.name ILIKE $1 OR
+      e.first_name ILIKE $1 OR
+      e.last_name ILIKE $1
+    ORDER BY t.purchase_date DESC;
+  `, [value]);
+  return rows;
+}
+
+async function getAllTransactionsWithDetails() {
+  const { rows } = await pool.query(`
+    SELECT 
+      t.id,
+      t.transaction_name,
+      t.amount,
+      t.purchase_date,
+      e.id AS employee_id,
+      e.first_name,
+      e.last_name,
+      c.name AS category_name,
+      c.type AS category_type
+    FROM transactions t
+    JOIN employee e ON t.employee_id = e.id
+    JOIN category c ON t.category_id = c.id
+    ORDER BY t.purchase_date DESC;
+  `);
+  return rows;
+}
 
 
 
@@ -115,7 +200,13 @@ module.exports = {
   countTopPerformers,
   insertEmployee,
   dropEmployee,
-  searchAndSortEmployees
+  searchAndSortEmployees,
+  displayAllTransactions,
+  insertTransaction,
+  getAllCategories,
+  searchTransactions,
+  dropTransaction,
+  getAllTransactionsWithDetails
 
 };
 

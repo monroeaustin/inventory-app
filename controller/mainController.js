@@ -20,8 +20,18 @@ async function showEmployees(req,res) {
    res.render('employees', {employees,
     employeeDashboard});
 }
-function showTransactions(req,res) {
-  res.render('transactions')
+async function showTransactions(req, res) {
+  try {
+    const transactions = await db.getAllTransactionsWithDetails();
+    const categories = await db.getAllCategories(); 
+    res.render('transactions', {
+      transactions,
+      categories,
+    });
+  } catch (err) {
+    console.error('Error loading transactions:', err.message);
+    res.render('error');
+  }
 }
 
 function showCategorys(req,res) {
@@ -59,8 +69,13 @@ async function deleteEmployee(req,res){
 
 }
 
-function newTransactions(req,res){
-  res.render('new-transaction');
+async function newTransactions(req,res){
+  const employees = await db.displayAllEmployees();
+  const categories = await db.getAllCategories();
+  res.render('new-transaction', {
+    employees,
+    categories
+  });
 }
 function newCategorys(req,res){
 
@@ -86,6 +101,8 @@ console.log('search term:', search);
 res.render('employees-search', {employees,sortBy,search,
     employeeDashboard});
 }
+
+
 
 
 

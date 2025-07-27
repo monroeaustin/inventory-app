@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" class="bg-gray-100 text-gray-800">
 
 <head>
@@ -11,85 +10,91 @@
 <body>
   <%- include('partials/header') %>
 
-  <div class="max-w-6xl mx-auto my-6">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Transactions</h1>
-      <div class="flex gap-2">
-        <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700"><a href="/transactions/new">New Transaction</a></button>
-        <button class="border px-4 py-2 rounded text-sm">Download</button>
+    <div class="max-w-6xl mx-auto my-6">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Transactions</h1>
+        <div class="flex gap-2">
+          <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700">
+            <a href="/transactions/new">New Transaction</a>
+          </button>
+          <button class="border px-4 py-2 rounded text-sm">Download</button>
+        </div>
+      </div>
+
+      <!-- Search & Filter -->
+      <form class="mb-6 flex flex-wrap gap-4" action="/transactions/search" method="GET">
+        <div class="flex items-center">
+          <label for="search" class="mr-2 text-sm font-medium">Search</label>
+          <input type="text" id="search" name="search" placeholder="e.g. Bonus, 101"
+            class="border px-3 py-2 rounded text-sm">
+        </div>
+
+        <div class="flex items-center">
+          <label for="filter" class="mr-2 text-sm font-medium">Category:</label>
+          <select id="filter" name="filter" class="border px-3 py-2 rounded text-sm">
+            <option value="">-- All --</option>
+            <% categories.forEach(cat=> { %>
+              <option value="<%= cat.name %>">
+                <%= cat.name %>
+              </option>
+              <% }) %>
+          </select>
+        </div>
+
+
+        <div>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">Search /
+            Filter</button>
+        </div>
+      </form>
+
+      <!-- Transactions Table -->
+      <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full text-sm text-left">
+          <thead class="bg-gray-100 uppercase text-gray-700 text-xs border-b">
+            <tr>
+              <th class="px-6 py-4">Transaction ID</th>
+              <th class="px-6 py-4">Employee ID</th>
+              <th class="px-6 py-4">Description</th>
+              <th class="px-6 py-4">Category</th>
+              <th class="px-6 py-4">Amount</th>
+              <th class="px-6 py-4">Date</th>
+              <th class="px-6 py-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% transactions.forEach(tx=> { %>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-6 py-4">
+                  <%= tx.id %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= tx.employee_id %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= tx.employee_name %>
+                </td>
+                <td class="px-6 py-4 text-blue-600 font-medium">
+                  <%= tx.category_name %>
+                </td>
+                <td class="px-6 py-4">$<%= tx.amount %>
+                </td>
+                <td class="px-6 py-4">
+                  <%= new Date(tx.purchase_date).toLocaleDateString(undefined, {year: "numeric" , month: "long" ,
+                    day: "numeric" }) %>
+                </td>
+                <td>
+                  <form action="/transactions/<%= tx.id %>/delete" method="POST">
+                    <button class="border px-4 py-2 rounded text-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
       </div>
     </div>
-
-    <!-- Search & Filter -->
-    <form class="mb-6 flex flex-wrap gap-4">
-      <div class="flex items-center">
-        <label for="search" class="mr-2 text-sm font-medium">Search Employee ID:</label>
-        <input type="text" id="search" name="search" placeholder="e.g. 101" class="border px-3 py-2 rounded text-sm">
-      </div>
-
-      <div class="flex items-center">
-        <label for="filter" class="mr-2 text-sm font-medium">Type:</label>
-        <select id="filter" name="filter" class="border px-3 py-2 rounded text-sm">
-          <option value="">-- All --</option>
-          <option value="Travel Reimbursement">Travel Reimbursement</option>
-          <option value="Meal Reimbursement">Meal Reimbursement</option>
-          <option value="Office Expense">Office Expense</option>
-          <option value="PTO Payout">PTO Payout</option>
-        </select>
-      </div>
-
-      <div>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">Search / Filter</button>
-      </div>
-    </form>
-
-    <!-- Transactions Table -->
-    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
-      <table class="min-w-full text-sm text-left">
-        <thead class="bg-gray-100 uppercase text-gray-700 text-xs border-b">
-          <tr>
-            <th class="px-6 py-4">Transaction ID</th>
-            <th class="px-6 py-4">Employee ID</th>
-            <th class="px-6 py-4">Name</th>
-            <th class="px-6 py-4">Type</th>
-            <th class="px-6 py-4">Amount</th>
-            <th class="px-6 py-4">Date</th>
-            <th class="px-6 py-4">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-6 py-4">T001</td>
-            <td class="px-6 py-4">101</td>
-            <td class="px-6 py-4">Jane Doe</td>
-            <td class="px-6 py-4 text-green-600 font-medium">Bonus</td>
-            <td class="px-6 py-4">$500</td>
-            <td class="px-6 py-4">July 20, 2025</td>
-            <td><form action="/transactions/T001/delete"><button class="border px-4 py-2 rounded text-sm">Delete</button></form></td>
-          </tr>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-6 py-4">T002</td>
-            <td class="px-6 py-4">102</td>
-            <td class="px-6 py-4">John Smith</td>
-            <td class="px-6 py-4 text-red-500 font-medium">Expense</td>
-            <td class="px-6 py-4">$120</td>
-            <td class="px-6 py-4">July 19, 2025</td>
-            <td><form action="/transactions/T002/delete"><button class="border px-4 py-2 rounded text-sm">Delete</button></form></td>
-          </tr>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-6 py-4">T003</td>
-            <td class="px-6 py-4">103</td>
-            <td class="px-6 py-4">Leo Chan</td>
-            <td class="px-6 py-4 text-blue-500 font-medium">Salary</td>
-            <td class="px-6 py-4">$2,400</td>
-            <td class="px-6 py-4">July 15, 2025</td>
-            <td><form action="/transactions/T003/delete"><button class="border px-4 py-2 rounded text-sm">Delete</button></form></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </body>
 
 </html>

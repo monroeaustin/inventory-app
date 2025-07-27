@@ -15,29 +15,34 @@ const createEmployeeTable =
 
 const createTransactionsTable = 
 `CREATE TABLE IF NOT EXISTS transactions (
-  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   employee_id INTEGER REFERENCES employee(id),
   transaction_name VARCHAR(150),
-  category_id INTEGER REFERENCES category(id),
+  category_id INTEGER REFERENCES category(id),  -- foreign key!
   amount NUMERIC(10,2),
   purchase_date DATE
-);`
+);
+`
 
 
 
 const createCategoryTable = 
 `CREATE TABLE IF NOT EXISTS category (
-  id INTEGER PRIMARY KEY,
-  name VARCHAR(150),
-  type VARCHAR(100) CHECK (type IN ('Income','Reimbursement','Deduction'))
-);`
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,        
+  description VARCHAR(150),    
+  type VARCHAR(50) CHECK (type IN ('Income', 'Reimbursement', 'Deduction'))
+);
+`
 
 const createAdminTable = 
 `
 CREATE TABLE IF NOT EXISTS admin_users (
   username VARCHAR(50) PRIMARY KEY,
   password VARCHAR(100),
-  admin_access BOOLEAN
+  admin_access BOOLEAN,
+  delete_permission BOOLEAN,
+  logged_in BOOLEAN
 );
 `
 
@@ -68,8 +73,8 @@ INSERT INTO transactions ( employee_id, transaction_name, category_id, amount, p
   ( 102, 'Sick Pay', 3, 2400.00, '2025-07-15');
 
 -- Insert dummy admin user
-INSERT INTO admin_users (username, password, admin_access) VALUES
-  ('admin', 'admin123', true);
+INSERT INTO admin_users (username, password, admin_access,delete_permission,logged_in) VALUES
+  ('admin', 'admin123', true, true,false);
 `;
 
 
