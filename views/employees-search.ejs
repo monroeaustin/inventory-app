@@ -24,21 +24,19 @@
                     </div>
                 </div>
 
-                <!-- Search & sortBy -->
-                <form class="mb-6 flex flex-wrap gap-4">
+                <!-- Search & Sort -->
+                <form class="mb-6 flex flex-wrap gap-4" action="/employees/search" method="GET">
                     <!-- Search Input -->
                     <div class="flex items-center">
-                       <label for="search" class="mr-2 text-sm font-medium">Search</label>
+                        <label for="search" class="mr-2 text-sm font-medium">Search</label>
                         <input type="text" id="search" name="search" placeholder="e.g. John, Active, 001"
-                            class="border px-3 py-2 rounded text-sm" value="<%= search %>">
+                            class="border px-3 py-2 rounded text-sm">
                     </div>
 
-                    <!-- sortBy Dropdown -->
+                    <!-- Sort Dropdown -->
                     <div class="flex items-center">
-                        <label for="sort" class="mr-2 text-sm font-medium">sortBy:</label>
-                        <select id="sort" name="sortBy" class="border px-3 py-2 rounded text-sm">
-                            <option value="top_performer" <%=sortBy==='top_performer' ? 'selected' : '' %>>Top
-                                Performers</option>
+                        <label for="sort" class="mr-2 text-sm font-medium">Sort:</label>
+                        <select id="sort" name="sort" class="border px-3 py-2 rounded text-sm">
                             <option value="id_asc" <%=sortBy==='id_asc' ? 'selected' : '' %>>ID (Lowest First)</option>
                             <option value="id_desc" <%=sortBy==='id_desc' ? 'selected' : '' %>>ID (Highest First)
                             </option>
@@ -49,9 +47,10 @@
                             <option value="age_asc" <%=sortBy==='age_asc' ? 'selected' : '' %>>Age (Youngest First)
                             </option>
                             <option value="age_desc" <%=sortBy==='age_desc' ? 'selected' : '' %>>Age (Oldest First)
+                            <option value="top_performer" <%=sortBy==='top_performer' ? 'selected' : '' %>>Top Performer</option>
+
                             </option>
                         </select>
-
                     </div>
 
 

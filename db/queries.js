@@ -64,7 +64,7 @@ async function searchAndSortEmployees(search, sortBy) {
       status ILIKE $1 OR 
       CAST(id AS TEXT) ILIKE $1`;
     values.push(`%${search}%`);
-  } else {
+  } else if(!search && sortBy==='top_performer'){
     whereClause = 'WHERE top_performer = true';
   }
 
