@@ -6,7 +6,7 @@ const createEmployeeTable =
   id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 100) PRIMARY KEY,
   first_name VARCHAR(100),
   last_name VARCHAR(100),
-  age INTEGER CHECK (age BETWEEN 13 AND 100),
+  age INTEGER CHECK (age BETWEEN 16 AND 100),
   status VARCHAR(50) CHECK (status IN ('Active', 'Retired', 'Terminated')),
   hire_date DATE,
   top_performer BOOLEAN
