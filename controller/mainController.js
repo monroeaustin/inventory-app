@@ -1,10 +1,18 @@
 
 const db = require('../db/queries');
 const auth = require("../utils/authCheck")
-function showHomePage(req, res) {
+async function showHomePage(req, res) {
 
-  res.render('index')
-}
+   try {
+    const system_logs =  await db.retrieveSystemLogs();
+
+    console.log(system_logs)
+    res.render('index', {system_logs});
+  } catch (err) {
+    console.error("Error loading categories:", err.message);
+    res.render("error");
+  
+}}
 
 async function showEmployees(req, res) {
   const employees = await db.displayAllEmployees();

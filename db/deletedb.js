@@ -8,7 +8,7 @@ async function resetDb() {
 
   try {
     await client.connect();
-    await client.query(`DROP TABLE IF EXISTS transactions, employee, category, admin_users CASCADE`);
+    await client.query(`DROP TABLE IF EXISTS transactions, employee, category, admin_users,system_logs CASCADE`);
     console.log(' Tables dropped');
 
 

@@ -38,19 +38,28 @@ const createCategoryTable =
 const createAdminTable = 
 `
 CREATE TABLE IF NOT EXISTS admin_users (
-  username VARCHAR(50) PRIMARY KEY,
+  username VARCHAR(50) UNIQUE,
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   password VARCHAR(100),
   admin_access BOOLEAN,
   delete_permission BOOLEAN,
   logged_in BOOLEAN
-);
+);`
+
+const createSystemLogsTable = 
 `
+CREATE TABLE IF NOT EXISTS system_logs (
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  log TIMESTAMP DEFAULT NOW(),
+  description VARCHAR(100)
+);`
 
 const seedScriptSQL = `
 ${createEmployeeTable}
 ${createCategoryTable}
 ${createTransactionsTable}
 ${createAdminTable}
+${createSystemLogsTable}
 
 -- Insert dummy employee data
 INSERT INTO employee (first_name, last_name, age, status, hire_date, top_performer) VALUES
@@ -75,7 +84,12 @@ INSERT INTO transactions ( employee_id, transaction_name, category_id, amount, p
 -- Insert dummy admin user
 INSERT INTO admin_users (username, password, admin_access,delete_permission,logged_in) VALUES
   ('admin', 'admin123', true, true,false);
+
+-- Insert dummy system logs
+INSERT INTO system_logs  (description) VALUES
+  ('Started Server');
 `;
+
 
 
 

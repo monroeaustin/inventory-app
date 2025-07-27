@@ -10,20 +10,10 @@ async function displayAllEmployees() {
   return rows
 }
 
-async function searchEmployeeByName(name) {
-  const value = `%${name}%`
-  const { rows } = await pool.query("SELECT * FROM employee WHERE first_name OR last_name ILIKE $1", [value])
-  return rows
-}
+
 async function getEmployeesByStatus(status) {
   const { rows } = await pool.query(
     "SELECT * FROM employee WHERE status = $1", [status]
-  );
-  return rows;
-}
-async function getEmployeesByID(id, order) {
-  const { rows } = await pool.query(
-    "SELECT * FROM employee WHERE id = $1", [id]
   );
   return rows;
 }
@@ -48,10 +38,13 @@ async function insertEmployee(emp) {
     emp.hireDate,
     emp.topPerformer
   ]);
+
+  await logtoSystem("Added Employee.");
 }
 
 async function dropEmployee(id) {
   await pool.query(`DELETE FROM employee WHERE id = ($1)`, [id])
+  await logtoSystem("Deleted Employee");
 }
 async function searchAndSortEmployees(search, sortBy) {
   let whereClause = '';
@@ -130,11 +123,14 @@ async function insertTransaction(txn) {
     INSERT INTO transactions (employee_id, transaction_name, category_id, amount, purchase_date)
     VALUES ($1, $2, $3, $4, $5);
   `, [txn.employee_id, txn.transaction_name, txn.category_id, txn.amount, txn.purchase_date]);
+  await logtoSystem("Added Transaction.");
 }
 
 // Delete a transaction by ID
 async function dropTransaction(id) {
   await pool.query(`DELETE FROM transactions WHERE id = $1`, [id]);
+    await logtoSystem("Deletected Transaction.");
+
 }
 
 // Get all categories (for dropdowns)
@@ -252,9 +248,12 @@ async function insertCategory(data) {
      VALUES ($1, $2, $3)`,
     [name, description, type]
   );
+    await logtoSystem("New Category Created.");
+
 }
 
 async function dropCategory(id) {
+  await logtoSystem("Deleted Category.");
   await pool.query(`DELETE FROM category WHERE id = $1`, [id]);
 }
 
@@ -264,6 +263,7 @@ async function retrieveAdminStatus(){
 }
 
 async function processLogin(val, user) {
+  await logtoSystem("User Logged In.");
   await pool.query(
     `UPDATE admin_users
      SET logged_in = $1
@@ -272,7 +272,17 @@ async function processLogin(val, user) {
   );
 }
 
+async function retrieveSystemLogs(){
+  const { rows } =  await pool.query(` SELECT * FROM system_logs`);
+  return rows;
 
+}
+async function logtoSystem(description) {
+  await pool.query(
+    `INSERT INTO system_logs (description) VALUES ($1)`,
+    [description]
+  );
+}
 module.exports = {
   displayAllEmployees,
   countTotalEmployees,
@@ -292,7 +302,9 @@ module.exports = {
   insertCategory,
   dropCategory,
   retrieveAdminStatus,
-  processLogin
+  processLogin,
+  retrieveSystemLogs,
+  logtoSystem
 
 };
 
