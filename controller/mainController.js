@@ -82,7 +82,7 @@ function newCategorys(req,res){
   res.render('new-category')
 }
 
-async function conductSearch(req,res){
+async function conductEmployeeSearch(req,res){
 searchQuery = req.query;
   const totalCountEmployees = await db.countTotalEmployees();
   const activeCountEmployees = await db.countActiveEmployees('Active');
@@ -121,6 +121,27 @@ async function postNewTransaction(req, res) {
 }
 
 
+async function conductTransactionSearch(req, res) {
+  const search = req.query.search || '';
+  const filter = req.query.filter || '';
+
+  try {
+    const transactions = await db.searchAndSortTransactions(search, filter);
+    const categories = await db.getAllCategories();
+
+    res.render('transaction-search', {
+      transactions,
+      categories,
+      search,
+      filter
+    });
+  } catch (err) {
+    console.error('Transaction search error:', err.message);
+    res.render('error');
+  }
+}
+
+
 
 
 
@@ -135,7 +156,8 @@ module.exports = {
   newCategorys,
   addEmployee,
   deleteEmployee,
-  conductSearch,
-  postNewTransaction
+  conductEmployeeSearch,
+  postNewTransaction,
+  conductTransactionSearch
   
 };

@@ -119,7 +119,7 @@ async function displayAllTransactions() {
     FROM transactions t
     JOIN employee e ON t.employee_id = e.id
     JOIN category c ON t.category_id = c.id
-    ORDER BY t.purchase_date DESC;
+ 
   `);
   return rows;
 }
@@ -190,6 +190,63 @@ async function getAllTransactionsWithDetails() {
   return rows;
 }
 
+async function searchAndSortTransactions(search, filter) {
+  let whereClause = '';
+  let values = [];
+
+  if (search && filter) {
+    whereClause = `WHERE 
+      (
+        t.transaction_name ILIKE $1 OR 
+        e.first_name ILIKE $1 OR 
+        e.last_name ILIKE $1 OR 
+        c.name ILIKE $1 OR 
+        c.type ILIKE $1 OR 
+        CAST(e.id AS TEXT) ILIKE $1
+      ) 
+      AND c.name = $2`;
+    values.push(`%${search.trim()}%`, filter.trim());
+  } else if (search) {
+    whereClause = `WHERE 
+      t.transaction_name ILIKE $1 OR 
+      e.first_name ILIKE $1 OR 
+      e.last_name ILIKE $1 OR 
+      c.name ILIKE $1 OR 
+      c.type ILIKE $1 OR 
+      CAST(e.id AS TEXT) ILIKE $1`;
+    values.push(`%${search.trim()}%`);
+  } else if (filter) {
+    whereClause = `WHERE c.name = $1`;
+    values.push(filter.trim());
+  }
+
+  const sql = `
+    SELECT 
+      t.id,
+      t.transaction_name,
+      t.amount,
+      t.purchase_date,
+      e.id AS employee_id,
+      e.first_name,
+      e.last_name,
+      c.name AS category_name,
+      c.type AS category_type
+    FROM transactions t
+    JOIN employee e ON t.employee_id = e.id
+    JOIN category c ON t.category_id = c.id
+    ${whereClause}
+    ORDER BY t.purchase_date DESC;
+  `;
+
+  console.log('[TRANSACTION SQL]', sql);
+  console.log('[VALUES]', values);
+
+  const { rows } = await pool.query(sql, values);
+  return rows;
+}
+
+
+
 
 
 module.exports = {
@@ -206,7 +263,8 @@ module.exports = {
   getAllCategories,
   searchTransactions,
   dropTransaction,
-  getAllTransactionsWithDetails
+  getAllTransactionsWithDetails,
+  searchAndSortTransactions
 
 };
 

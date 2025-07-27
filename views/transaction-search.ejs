@@ -1,0 +1,112 @@
+<html lang="en" class="bg-gray-100 text-gray-800">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transactions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+
+        <div class="max-w-6xl mx-auto my-6">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Transactions</h1>
+                <div class="flex gap-2">
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700">
+                        <a href="/transactions/new">New Transaction</a>
+                    </button>
+                    <button class="border px-4 py-2 rounded text-sm">Download</button>
+                </div>
+            </div>
+
+            <!-- Search & Filter -->
+           <form class="mb-6 flex flex-wrap gap-4" action="/transactions/search" method="GET">
+  <div class="flex items-center">
+    <label for="search" class="mr-2 text-sm font-medium">Search</label>
+    <input 
+      type="text" 
+      id="search" 
+      name="search" 
+      placeholder="e.g. Bonus, 101" 
+      class="border px-3 py-2 rounded text-sm"
+      value="<%= search %>"
+    >
+  </div>
+
+  <div class="flex items-center">
+    <label for="filter" class="mr-2 text-sm font-medium">Category:</label>
+    <select id="filter" name="filter" class="border px-3 py-2 rounded text-sm">
+      <option value="">-- All --</option>
+      <% categories.forEach(cat => { %>
+        <option value="<%= cat.name %>" <%= filter === cat.name ? 'selected' : '' %>>
+          <%= cat.name %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+      Search / Filter
+    </button>
+  </div>
+</form>
+
+
+
+            <!-- Transactions Table -->
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+                <table class="min-w-full text-sm text-left">
+                    <thead class="bg-gray-100 uppercase text-gray-700 text-xs border-b">
+                        <tr>
+                            <th class="px-6 py-4">Transaction ID</th>
+                            <th class="px-6 py-4">Employee ID</th>
+                            <th class="px-6 py-4">Employee Name</th>
+                            <th class="px-6 py-4">Description</th>
+                            <th class="px-6 py-4">Category</th>
+                            <th class="px-6 py-4">Amount</th>
+                            <th class="px-6 py-4">Date</th>
+                            <th class="px-6 py-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% transactions.forEach(tx=> { %>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4">
+                                    <%= tx.id %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= tx.employee_id %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= tx.first_name + ' ' + tx.last_name %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= tx.transaction_name %>
+                                </td>
+                                <td class="px-6 py-4 text-blue-600 font-medium">
+                                    <%= tx.category_name %>
+                                </td>
+                                <td class="px-6 py-4">$<%= tx.amount %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= new Date(tx.purchase_date).toLocaleDateString(undefined, {year: "numeric" ,
+                                        month: "long" , day: "numeric" }) %>
+                                </td>
+                                <td>
+                                    <form action="/transactions/<%= tx.id %>/delete" method="POST">
+                                        <button class="border px-4 py-2 rounded text-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</body>
+
+</html>
