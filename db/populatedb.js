@@ -28,7 +28,7 @@ const createTransactionsTable =
 
 const createCategoryTable = 
 `CREATE TABLE IF NOT EXISTS category (
-  id SERIAL PRIMARY KEY,
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name VARCHAR(100) NOT NULL,        
   description VARCHAR(150),    
   type VARCHAR(50) CHECK (type IN ('Income', 'Reimbursement', 'Deduction'))
@@ -61,10 +61,10 @@ INSERT INTO employee (first_name, last_name, age, status, hire_date, top_perform
   ('Elon', 'Musk', 51, 'Retired', '2017-01-12', true);
 
 -- Insert dummy categories
-INSERT INTO category (id, name, type) VALUES
-  (1, 'Bonus', 'Income'),
-  (2, 'Travel Reimbursement','Reimbursement'),
-  (3, 'PTO Payout', 'Deduction');
+INSERT INTO category (name, type, description) VALUES
+  ('Bonus', 'Income', 'Used to reward employees with additional pay outside of regular salary, such as sign-on or performance bonuses.'),
+  ('Travel Reimbursement', 'Reimbursement', 'Covers expenses paid by employees for business-related travel, such as flights, hotels, or meals.'),
+  ('PTO Payout', 'Deduction', 'Used when paying out unused paid time off, typically during employee termination or resignation.');
 
 -- Insert dummy transactions
 INSERT INTO transactions ( employee_id, transaction_name, category_id, amount, purchase_date) VALUES

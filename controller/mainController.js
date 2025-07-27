@@ -141,7 +141,33 @@ async function conductTransactionSearch(req, res) {
   }
 }
 
+async function deleteTransaction(req, res) {
+  const transactionID = parseInt(req.params.id);
 
+  try {
+    await db.dropTransaction(transactionID);
+    res.redirect("/transactions");
+  } catch (err) {
+    console.error("Transaction delete error:", err.message);
+    res.render("error");
+  }
+}
+
+async function addCategory(req, res) {
+  const data = {
+    name: req.body.name,
+    description: req.body.description || '',
+    type: req.body.type
+  };
+
+  try {
+    await db.insertCategory(data);
+    res.redirect('/categorys');
+  } catch (err) {
+    console.error("Category insert error:", err.message);
+    res.render('error');
+  }
+}
 
 
 
@@ -158,6 +184,8 @@ module.exports = {
   deleteEmployee,
   conductEmployeeSearch,
   postNewTransaction,
-  conductTransactionSearch
+  conductTransactionSearch,
+  deleteTransaction,
+  addCategory
   
 };

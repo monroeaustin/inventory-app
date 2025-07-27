@@ -5,5 +5,6 @@ router.get('/', controller.showTransactions);
 router.get('/new', controller.newTransactions);
 router.post('/new',controller.postNewTransaction)
 router.get('/search',controller.conductTransactionSearch)
+router.post('/:id/delete',controller.deleteTransaction)
 
 module.exports = router;

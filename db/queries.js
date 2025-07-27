@@ -245,6 +245,15 @@ async function searchAndSortTransactions(search, filter) {
   return rows;
 }
 
+async function insertCategory(data) {
+  const { name, description, type } = data;
+  await pool.query(
+    `INSERT INTO category (name, description, type)
+     VALUES ($1, $2, $3)`,
+    [name, description, type]
+  );
+}
+
 
 
 
@@ -264,7 +273,8 @@ module.exports = {
   searchTransactions,
   dropTransaction,
   getAllTransactionsWithDetails,
-  searchAndSortTransactions
+  searchAndSortTransactions,
+  insertCategory,
 
 };
 
