@@ -139,7 +139,7 @@ async function dropTransaction(id) {
 
 // Get all categories (for dropdowns)
 async function getAllCategories() {
-  const { rows } = await pool.query(`SELECT * FROM category ORDER BY name ASC`);
+  const { rows } = await pool.query(`SELECT * FROM category ORDER BY ID ASC`);
   return rows;
 }
 
@@ -254,6 +254,9 @@ async function insertCategory(data) {
   );
 }
 
+async function dropCategory(id) {
+  await pool.query(`DELETE FROM category WHERE id = $1`, [id]);
+}
 
 
 
@@ -275,6 +278,7 @@ module.exports = {
   getAllTransactionsWithDetails,
   searchAndSortTransactions,
   insertCategory,
+  dropCategory
 
 };
 

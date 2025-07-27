@@ -16,8 +16,9 @@
             <div class="flex justify-between items-center mb-6 mt-6">
                 <h1 class="text-2xl font-bold">Transaction Categories</h1>
                 <div>
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700"><a href="/categorys/new">Add Category</a></button>
-                        <button class="border px-4 py-2 rounded text-sm">Download</button>
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded text-sm hover:bg-indigo-700"><a
+                            href="/categorys/new">Add Category</a></button>
+                    <button class="border px-4 py-2 rounded text-sm">Download</button>
                 </div>
             </div>
 
@@ -34,38 +35,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Sample Rows -->
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">1</td>
-                            <td class="px-6 py-4">Salary</td>
-                            <td class="px-6 py-4">Base monthly pay for employees</td>
-                            <td class="px-6 py-4 text-green-600 font-medium">Income</td>
-                            <td>
-                                <form action="/category/1/delete"><button
-                                        class="border px-4 py-2 rounded text-sm">Delete</button></form>
-                            </td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">2</td>
-                            <td class="px-6 py-4">Travel Reimbursement</td>
-                            <td class="px-6 py-4">Refund for travel expenses</td>
-                            <td class="px-6 py-4 text-blue-500 font-medium">Reimbursement</td>
-                            <td>
-                                <form action="/category/2/delete"><button
-                                        class="border px-4 py-2 rounded text-sm">Delete</button></form>
-                            </td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4">3</td>
-                            <td class="px-6 py-4">Insurance Deduction</td>
-                            <td class="px-6 py-4">Health plan premium</td>
-                            <td class="px-6 py-4 text-red-500 font-medium">Deduction</td>
-                            <td>
-                                <form action="/category/3/delete"><button
-                                        class="border px-4 py-2 rounded text-sm">Delete</button></form>
-                            </td>
-                        </tr>
+                        <% categories.forEach(cat=> { %>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4">
+                                    <%= cat.id %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= cat.name %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= cat.description %>
+                                </td>
+                                <td class="px-6 py-4 font-medium 
+        <%= cat.type === 'Income' ? 'text-green-600' : 
+            cat.type === 'Reimbursement' ? 'text-blue-500' : 
+            cat.type === 'Deduction' ? 'text-red-500' : 
+            'text-gray-600' %>">
+                                    <%= cat.type %>
+                                </td>
+                                <td>
+                                    <form action="/categorys/<%= cat.id %>/delete" method="POST">
+                                        <button class="border px-4 py-2 rounded text-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
                     </tbody>
+
                 </table>
             </div>
         </div>

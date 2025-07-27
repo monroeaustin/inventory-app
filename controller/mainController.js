@@ -34,10 +34,15 @@ async function showTransactions(req, res) {
   }
 }
 
-function showCategorys(req,res) {
-  res.render('categorys')
+async function showCategorys(req, res) {
+  try {
+    const categories = await db.getAllCategories();
+    res.render('categorys', { categories });
+  } catch (err) {
+    console.error("Error loading categories:", err.message);
+    res.render("error");
+  }
 }
-
 function newEmployee(req,res) {
   res.render('new-employee')
 }
@@ -169,6 +174,17 @@ async function addCategory(req, res) {
   }
 }
 
+async function deleteCategory(req, res) {
+  const categoryID = parseInt(req.params.id);
+
+  try {
+    await db.dropCategory(categoryID);
+    res.redirect("/categorys");
+  } catch (err) {
+    console.error("Category delete error:", err.message);
+    res.render("error");
+  }
+}
 
 
 
@@ -186,6 +202,7 @@ module.exports = {
   postNewTransaction,
   conductTransactionSearch,
   deleteTransaction,
-  addCategory
+  addCategory,
+  deleteCategory
   
 };
